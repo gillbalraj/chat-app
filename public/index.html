@@ -5,8 +5,15 @@
 	   <title>Chat-App</title>
 	</head>
 	<body>
-		<p>hello world</p>
-		
+		<form id="message-form">
+			<input type="text" name="message"/>
+			<input type="submit"/>
+		</form>
+		<div class="messages">
+			<!-- messages will be placed here -->
+			<p></p>
+			<p></p>
+		</div>
 		<script src="/js/jquery.js"></script>
 		<script src="/js/socket.js"></script>
 		<script src="/js/app.js"></script>
