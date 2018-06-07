@@ -17,6 +17,7 @@ io.on('connection', function(socket){
 		//socket.broadcast.emit('message', message);
 	});
 	socket.emit('message', {
+		name: 'System',
 		text: 'Welcome to my app', 
 		timeStamp: now.valueOf()
 	});

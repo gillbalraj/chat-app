@@ -1,4 +1,7 @@
 var socket = io();
+var name = getQueryVariable('name') || 'Anonymous';
+var room = getQueryVariable('room');
+ console.log(name +" has joined " + room);
  socket.on('connect', function(){
  	console.log('connected to socket.io server');
  });
@@ -6,12 +9,13 @@ var socket = io();
  socket.on('message', function(message){
  	var timeStampMoment = moment.utc(message.timeStamp);
  	console.log('New message');
- 	console.log(message.time+' '+message.text);
+ 	console.log(message.text);
  	var timeStampMoment = moment.utc(message.timeStamp);
- 	
+ 	var $message = jQuery('.messages');
  	 //to select by class name we use periods
- 	 jQuery('.messages').append('<p> <strong>'+timeStampMoment.local().format('hh:mm a')+': '+'</strong>'+ message.text + '</p>') 
- });
+ 	 $message.append('<p> <strong>'+message.name+' '+timeStampMoment.local().format('hh:mm a')+'</strong></p>');
+ 	 $message.append('<p>'+message.text+'</p>')
+ 	  });
 
  //send submitted data front-end
 
@@ -23,6 +27,7 @@ var socket = io();
  	var $message = $form.find('input[name=message]');
  
  	socket.emit('message', {
+ 		name: name,
  		text: $message.val(),
  		
  		 //selector of input tags using jquery function
