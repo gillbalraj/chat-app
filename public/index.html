@@ -5,15 +5,17 @@
 	   <title>Chat-App</title>
 	</head>
 	<body>
-		<form id="message-form">
-			<input type="text" name="message"/>
-			<input type="submit"/>
-		</form>
+		<button type="button" onclick="location.href='/chat.html';">Change Name</button> 
+		
 		<div class="messages">
 			<!-- messages will be placed here -->
 			<p></p>
 			<p></p>
 		</div>
+		<form id="message-form">
+			<input type="text" name="message"/>
+			<input type="submit" value="send"/>
+		</form>
 		<script src="/js/jquery.js"></script>
 		<script src="/js/socket.js"></script>
 		<script src="/js/moment.js"></script>
