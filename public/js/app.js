@@ -1,9 +1,19 @@
 var socket = io();
 var name = getQueryVariable('name') || 'Anonymous';
-var room = getQueryVariable('room');
- console.log(name +" has joined " + room);
+var room = getQueryVariable('room') || 'Anonymous';
+ 
+console.log(name +" has joined " + room);
+
+//display room name
+ jQuery('.room-title').text(room);
+
+
  socket.on('connect', function(){
  	console.log('connected to socket.io server');
+ 	socket.emit('joinRoom',{
+ 		name: name,
+ 		room: room
+ 	});
  });
 //call back function has an argument which is the data server has sent
  socket.on('message', function(message){
@@ -14,6 +24,7 @@ var room = getQueryVariable('room');
  	var $message = jQuery('.messages');
  	 //to select by class name we use periods
  	 $message.append('<p> <strong>'+message.name+' '+timeStampMoment.local().format('hh:mm a')+'</strong></p>');
+
  	 $message.append('<p>'+message.text+'</p>')
  	  });
 
@@ -29,7 +40,6 @@ var room = getQueryVariable('room');
  	socket.emit('message', {
  		name: name,
  		text: $message.val(),
- 		
  		 //selector of input tags using jquery function
  	 	//val functionis used to actually pull the value out and print it as a string
  	})

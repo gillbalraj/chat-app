@@ -4,7 +4,8 @@ function getQueryVariable(variable){
 	for(var i=0; i< vars.length; i++){
 		var pair = vars[i].split('=');
 		if(decodeURIComponent(pair[0]) == variable){
-			return decodeURIComponent(pair[1]);
+			//replace :> (pair[1]).replace(/\+/g,' ');  can replace any + within the given text
+			return decodeURIComponent(pair[1].replace(/\+/g, ' '));
 		}
 
 	}
