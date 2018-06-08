@@ -13,6 +13,21 @@ var clientInfo = {};
 io.on('connection', function(socket){
 	console.log(now.format('hh:mm a ') +'user connected via socket.io!');
 	
+	//disconnect event
+
+	socket.on('disconnect', function(){
+		var userData = clientInfo[socket.id];
+		if(typeof userData !== 'undefined'){
+			socket.leave(userData.room);
+			io.to(userData.room).emit('message', {
+				name: 'System',
+				text: userData.name + ' has left',
+				timeStamp: now.valueOf()
+			});
+			//delete the data from room if user left
+			delete clientInfo[socket.id]
+		}
+	});
 	//join rooms
 	socket.on('joinRoom', function(req){
 		clientInfo[socket.id]= req;//squre braces are used if the attribute name is dynamic
