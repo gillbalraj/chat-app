@@ -5,17 +5,18 @@ var room = getQueryVariable('room') || 'Anonymous';
 console.log(name +" has joined " + room);
 
 //display room name
- jQuery('.room-title').text(room);
+ jQuery('.room-title').text(room); //or".html" which expects html data
 
 
  socket.on('connect', function(){
  	console.log('connected to socket.io server');
+ 	//added the room chat funtionality
  	socket.emit('joinRoom',{
  		name: name,
  		room: room
  	});
  });
-//call back function has an argument which is the data server has sent
+//call back function has an argument which the data server has sent
  socket.on('message', function(message){
  	var timeStampMoment = moment.utc(message.timeStamp);
  	console.log('New message');
@@ -24,8 +25,9 @@ console.log(name +" has joined " + room);
  	var $message = jQuery('.messages');
  	 //to select by class name we use periods
  	 $message.append('<p> <strong>'+message.name+' '+timeStampMoment.local().format('hh:mm a')+'</strong></p>');
-
+ 	 //added name and time here
  	 $message.append('<p>'+message.text+'</p>')
+ 	 //adding soething to visible DOM
  	  });
 
  //send submitted data front-end
