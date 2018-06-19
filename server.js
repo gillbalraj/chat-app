@@ -1,6 +1,7 @@
 var PORT = process.env.PORT || 3000;
 var express = require('express');
 var app = express(app);
+var db = require('./db.js')
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var moment = require('moment');
@@ -65,15 +66,33 @@ io.on('connection', function(socket){
 			timeStamp: now.valueOf()
 		});
 	});
-
+//this prints on console
 	socket.on('message', function(message){
+		//database for chat history
+		db.chat.findOne({where: {name: message.name}}
+		).then(function(chat){
+			if(chat){
+
+				db.sequelize.query("UPDATE chats SET message = message ||' '|| '"+message.text+"' WHERE name = '"+message.name+"'")
+				console.log(chat.get('message') +' '+ message.text);
+				
+			}else{
+				db.chat.create({
+					name: message.name,
+					phoneNumber: 123123432,
+					message: message.text
+				})
+			}
+		})
+
 		console.log('Message received: '+ message.text);
+
 		//check value of users
 		if(message.text === '@currentUsers'){
 			sendCurrentUsers(socket);
 		}else{
 			message.timeStamp = now.valueOf();
-			io.to(clsientInfo[socket.id].room).emit('message',message);
+			io.to(clientInfo[socket.id].room).emit('message',message);
 		};
 
 		
@@ -87,6 +106,11 @@ io.on('connection', function(socket){
 		timeStamp: now.valueOf()
 	});
 });
-http.listen(PORT, function(){
+db.sequelize.sync(
+	//force:true
+	).then(function(){
+	http.listen(PORT, function(){
 	console.log('server started')
-})
+	})
+});
+
