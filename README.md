@@ -6,9 +6,11 @@ To run the application simply clone the repository and follow these steps:
 1. Run the server.js file from your terminal. 
         - write "node server.js" and hit enter. 
 2. If everything went well, a message stating "Listening to port 3000" will be prompt at terminal.
-3. Open your favourite browser and write "http://localhost:3000/" on the address bar.
-      - open a duplicate window and start exchanging the messages.
-     
+3. For testing purpose:
+        Open your favourite browser and write "http://localhost:3000/" on the address bar.
+                - open a duplicate window and start exchanging the messages.
+4. A new sqlite database is attached in the recent push, chat history will now be stored using sequelize. 
+        
 And thats how simple it is. Enjoy!
 
 -I'll appriciate if you can leave a feedback for me. You can always reach me via email: balrajgill18@gmail.com or my linkedin: https://www.linkedin.com/in/balrajsg/
