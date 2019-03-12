@@ -1,12 +1,12 @@
 {
   "name": "chat-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Chat app using Node.Js and Angular",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "AB-Chat-Group",
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.3",
@@ -14,5 +14,8 @@
     "sequelize": "^4.37.10",
     "socket.io": "^1.3.7",
     "sqlite3": "^4.0.0"
+  },
+  "engines": {
+    "node": "10.15.0"
   }
 }
